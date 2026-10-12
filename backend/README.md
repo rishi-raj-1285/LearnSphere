@@ -13,7 +13,7 @@ npm install
 npm run dev
 ```
 
-Set `MONGODB_URI` to a MongoDB Atlas connection string and replace `JWT_SECRET` with a long random value. `CLIENT_URL` should match the Vite origin (`http://localhost:5173` by default). The server listens on port 5000 unless `PORT` is set.
+Set `MONGODB_URI` to a MongoDB Atlas connection string and replace `JWT_SECRET` with a long random value. `CLIENT_URL` should match the Vite origin (`http://localhost:3000` in this project). The server listens on port 5000 unless `PORT` is set.
 
 ## API
 

@@ -30,7 +30,21 @@ const app = express();
 app.use(helmet());
 app.use(
   cors({
-    origin: config.clientUrl,
+    origin(origin, callback) {
+      // Browsers omit Origin for same-origin tools such as direct health checks.
+      if (!origin) return callback(null, true);
+
+      const configured = new URL(config.clientUrl);
+      const allowed = new Set([config.clientUrl]);
+      if (configured.hostname === 'localhost') {
+        allowed.add(`${configured.protocol}//127.0.0.1${configured.port ? `:${configured.port}` : ''}`);
+      } else if (configured.hostname === '127.0.0.1') {
+        allowed.add(`${configured.protocol}//localhost${configured.port ? `:${configured.port}` : ''}`);
+      }
+
+      if (allowed.has(origin)) return callback(null, true);
+      return callback(new Error('Origin not allowed by CORS'));
+    },
     credentials: true
   })
 );
