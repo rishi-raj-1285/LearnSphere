@@ -9,12 +9,13 @@ export const DEFAULT_STUDENT_PROFILE = {
   academicLevel: "Undergraduate (Year 2)",
   institution: "National Institute of Technology",
   course: "B.Tech Computer Science & Data Engineering",
-  subjects: ["Data Structures & Algorithms", "Database Management", "Computer Networks", "Linear Algebra"],
+  subjects: ["Data Structures and Algorithms", "Computer Networks", "Operating Systems", "SQL", "Aptitude"],
   proficiencies: {
-    "Data Structures & Algorithms": "Intermediate",
-    "Database Management": "Advanced",
+    "Data Structures and Algorithms": "Intermediate",
     "Computer Networks": "Beginner",
-    "Linear Algebra": "Intermediate"
+    "Operating Systems": "Intermediate",
+    SQL: "Intermediate",
+    Aptitude: "Intermediate"
   },
   primaryLanguage: "English",
   secondaryLanguage: "Hindi",
@@ -78,6 +79,14 @@ export const EMPTY_STUDENT_PROFILE = {
   diagnosticResults: null,
   onboardingCompleted: false
 };
+
+export const ACTIVE_SUBJECTS = [
+  'Data Structures and Algorithms',
+  'Computer Networks',
+  'Operating Systems',
+  'SQL',
+  'Aptitude'
+];
 
 export const DEMO_DOCUMENTS = [
   {

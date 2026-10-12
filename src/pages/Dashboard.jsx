@@ -12,8 +12,8 @@ export default function Dashboard({
   const [tasks, setTasks] = useState([
     { id: 1, text: "Revise AVL Tree Left-Right (LR) Rotations", subject: "Data Structures", completed: true, time: "20 min" },
     { id: 2, text: "Follow Milestone 1 of PDF AI Study Plan", subject: "Data Structures", completed: false, time: "30 min" },
-    { id: 3, text: "Review Okazaki fragments with Vidya Chatbot", subject: "Biology", completed: false, time: "25 min" },
-    { id: 4, text: "Check Exam Mentor Roadmap for upcoming sprint", subject: "Exam Prep", completed: false, time: "15 min" }
+    { id: 3, text: "Practice SQL joins and query optimization", subject: "SQL", completed: false, time: "25 min" },
+    { id: 4, text: "Review Computer Networks routing concepts", subject: "Computer Networks", completed: false, time: "15 min" }
   ]);
 
   const toggleTask = (id) => {
@@ -303,7 +303,7 @@ export default function Dashboard({
             <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '4px' }}>
-                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>Data Structures & Algorithms</span>
+                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>Data Structures and Algorithms</span>
                   <span style={{ fontWeight: '700', color: 'var(--color-strong-blue)' }}>78%</span>
                 </div>
                 <div style={{ height: '7px', background: 'var(--color-surface-light)', borderRadius: '4px', overflow: 'hidden' }}>
@@ -313,7 +313,7 @@ export default function Dashboard({
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '4px' }}>
-                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>Database Management</span>
+                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>Operating Systems</span>
                   <span style={{ fontWeight: '700', color: 'var(--color-strong-blue)' }}>85%</span>
                 </div>
                 <div style={{ height: '7px', background: 'var(--color-surface-light)', borderRadius: '4px', overflow: 'hidden' }}>
@@ -333,7 +333,7 @@ export default function Dashboard({
 
               <div>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', marginBottom: '4px' }}>
-                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>Linear Algebra</span>
+                  <span style={{ fontWeight: '600', color: 'var(--color-dark-blue)' }}>SQL</span>
                   <span style={{ fontWeight: '700', color: 'var(--color-strong-blue)' }}>72%</span>
                 </div>
                 <div style={{ height: '7px', background: 'var(--color-surface-light)', borderRadius: '4px', overflow: 'hidden' }}>

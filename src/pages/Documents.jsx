@@ -6,6 +6,7 @@ export default function Documents({
   onOpenDocumentStudy,
   onNavigateTab,
   onAddToast,
+  onUploadDocument,
   isUploadModalOpen,
   setIsUploadModalOpen
 }) {
@@ -15,7 +16,7 @@ export default function Documents({
 
   // Upload State
   const [uploadFile, setUploadFile] = useState(null);
-  const [uploadSubject, setUploadSubject] = useState('Data Structures & Algorithms');
+  const [uploadSubject, setUploadSubject] = useState('Data Structures and Algorithms');
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadStage, setUploadStage] = useState('');
   const [uploadError, setUploadError] = useState('');
@@ -362,6 +363,9 @@ export default function Documents({
                       <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)', marginTop: '4px' }}>
                         {uploadFile ? `${(uploadFile.size / (1024 * 1024)).toFixed(2)} MB ready for indexing` : "PDF, PPTX, TXT, or Textbook Photos up to 25MB"}
                       </div>
+                      <span className="btn btn-primary" style={{ display: 'inline-flex', marginTop: '12px' }}>
+                        Choose file
+                      </span>
                     </label>
                   </div>
 
@@ -378,12 +382,11 @@ export default function Documents({
                       value={uploadSubject}
                       onChange={(e) => setUploadSubject(e.target.value)}
                     >
-                      <option value="Data Structures & Algorithms">Data Structures & Algorithms</option>
-                      <option value="Database Management">Database Management</option>
+                      <option value="Data Structures and Algorithms">Data Structures and Algorithms</option>
                       <option value="Computer Networks">Computer Networks</option>
-                      <option value="Linear Algebra">Linear Algebra</option>
-                      <option value="Biology & Genetics">Biology & Genetics</option>
-                      <option value="Economics & Finance">Economics & Finance</option>
+                      <option value="Operating Systems">Operating Systems</option>
+                      <option value="SQL">SQL</option>
+                      <option value="Aptitude">Aptitude</option>
                     </select>
                   </div>
 

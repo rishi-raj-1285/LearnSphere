@@ -3,17 +3,20 @@ import { DIAGNOSTIC_QUIZ_QUESTIONS } from '../data/initialData';
 
 export default function Onboarding({ initialProfile, onCompleteOnboarding }) {
   const [step, setStep] = useState(1);
-  const totalSteps = 5;
+  const totalSteps = 4;
 
   const [formData, setFormData] = useState({
     name: initialProfile?.name || '',
     academicLevel: initialProfile?.academicLevel || 'Undergraduate (Year 2)',
     institution: initialProfile?.institution || 'National Institute of Technology',
     course: initialProfile?.course || 'Computer Science & Engineering',
-    subjects: initialProfile?.subjects || ['Data Structures & Algorithms', 'Database Management'],
+    subjects: initialProfile?.subjects || ['Data Structures and Algorithms', 'Computer Networks', 'Operating Systems', 'SQL', 'Aptitude'],
     proficiencies: initialProfile?.proficiencies || {
-      'Data Structures & Algorithms': 'Intermediate',
-      'Database Management': 'Intermediate'
+      'Data Structures and Algorithms': 'Intermediate',
+      'Computer Networks': 'Intermediate',
+      'Operating Systems': 'Intermediate',
+      SQL: 'Intermediate',
+      Aptitude: 'Intermediate'
     },
     primaryLanguage: initialProfile?.primaryLanguage || 'English',
     secondaryLanguage: initialProfile?.secondaryLanguage || 'Hindi',
@@ -39,14 +42,11 @@ export default function Onboarding({ initialProfile, onCompleteOnboarding }) {
   const [quizCompleted, setQuizCompleted] = useState(false);
 
   const availableSubjects = [
-    'Data Structures & Algorithms',
-    'Database Management',
+    'Data Structures and Algorithms',
     'Computer Networks',
-    'Linear Algebra',
-    'Biology & Genetics',
-    'Economics & Finance',
     'Operating Systems',
-    'Discrete Mathematics'
+    'SQL',
+    'Aptitude'
   ];
 
   const formatOptions = [
@@ -179,7 +179,6 @@ export default function Onboarding({ initialProfile, onCompleteOnboarding }) {
                 {step === 2 && "Subjects & Proficiency"}
                 {step === 3 && "Languages & Learning Formats"}
                 {step === 4 && "Goals & Study Schedule"}
-                {step === 5 && "Accessibility & Diagnostic Assessment"}
               </h2>
             </div>
             <p style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginTop: '4px' }}>

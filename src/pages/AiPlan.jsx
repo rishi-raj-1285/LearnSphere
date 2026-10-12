@@ -5,13 +5,15 @@ export default function AiPlan({
   onOpenDocumentStudy,
   onAddToast,
   studentProfile,
-  setStudentProfile
+  setStudentProfile,
+  onUploadDocument
 }) {
   const [activeOption, setActiveOption] = useState('pdfPlan'); // 'pdfPlan' or 'mentorPlan'
 
   // Option 1: PDF Plan State
   const [selectedDocId, setSelectedDocId] = useState(documents[0]?.id || '');
   const [isGeneratingPlan, setIsGeneratingPlan] = useState(false);
+  const [isUploadingPdf, setIsUploadingPdf] = useState(false);
   const [pdfPlanResult, setPdfPlanResult] = useState({
     docTitle: documents[0]?.title || "Data Structures & Algorithms - Trees & Graphs.pdf",
     subject: documents[0]?.subject || "Data Structures & Algorithms",
@@ -48,6 +50,27 @@ export default function AiPlan({
   });
 
   const selectedDoc = documents.find(d => d.id === selectedDocId) || documents[0];
+
+  const handlePdfUpload = async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = '';
+    if (!file || !onUploadDocument) return;
+    if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+      onAddToast?.('Please choose a PDF file.');
+      return;
+    }
+
+    setIsUploadingPdf(true);
+    try {
+      const uploaded = await onUploadDocument(file, studentProfile?.subjects?.[0] || 'Data Structures and Algorithms');
+      setSelectedDocId(uploaded.id);
+      onAddToast?.('PDF uploaded and ready for plan generation.');
+    } catch (err) {
+      onAddToast?.(err.message || 'Could not upload PDF.');
+    } finally {
+      setIsUploadingPdf(false);
+    }
+  };
 
   const handleGeneratePdfPlan = () => {
     setIsGeneratingPlan(true);
@@ -104,11 +127,11 @@ export default function AiPlan({
         phases: [
           {
             name: "Phase 1 (Weeks 1–4): Core Mathematical Foundations",
-            details: "Cover Linear Algebra, Discrete Mathematics, and C/Data Structures. Focus on algorithmic proofs and complexity invariants."
+            details: "Cover Data Structures and Algorithms, Operating Systems, and SQL. Focus on algorithmic proofs and complexity invariants."
           },
           {
             name: "Phase 2 (Weeks 5–8): System Design & Core Engineering",
-            details: "Computer Networks, Database Management (Normalization & Transactions), and Operating Systems memory management."
+            details: "Computer Networks, SQL query design, and Operating Systems memory management."
           },
           {
             name: "Phase 3 (Weeks 9–12): Previous Years' Papers (PYQs) & Mocks",
@@ -291,6 +314,16 @@ export default function AiPlan({
             </div>
 
             <div style={{ display: 'flex', gap: '8px', alignSelf: 'flex-end' }}>
+              <label className="btn btn-outline" style={{ cursor: isUploadingPdf ? 'wait' : 'pointer' }}>
+                {isUploadingPdf ? 'Uploading…' : '＋ Add PDF'}
+                <input
+                  type="file"
+                  accept="application/pdf,.pdf"
+                  onChange={handlePdfUpload}
+                  disabled={isUploadingPdf}
+                  style={{ display: 'none' }}
+                />
+              </label>
               <button
                 type="button"
                 className="btn btn-primary"

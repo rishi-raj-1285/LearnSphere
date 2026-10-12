@@ -4,7 +4,8 @@ export default function Sidebar({
   activeTab,
   onSelectTab,
   isOpen,
-  onClose
+  onClose,
+  onLogout
 }) {
   const navItems = [
     {
@@ -147,6 +148,14 @@ export default function Sidebar({
         </nav>
 
         <div className="sidebar-footer">
+          <button
+            type="button"
+            className="btn btn-outline"
+            style={{ width: '100%', marginBottom: '12px' }}
+            onClick={onLogout}
+          >
+            Log out
+          </button>
           <div className="prototype-tag">🤖 Vidya AI Assistant</div>
           <p className="sidebar-footer-desc">
             Personalized AI study plans & bilingual educational mentor.

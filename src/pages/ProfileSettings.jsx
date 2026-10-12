@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ACTIVE_SUBJECTS } from '../data/initialData';
 
 export default function ProfileSettings({
   activeView = 'profile', // 'profile' or 'settings'
@@ -12,14 +13,7 @@ export default function ProfileSettings({
   const [profileForm, setProfileForm] = useState({ ...studentProfile });
   const [activeSubTab, setActiveSubTab] = useState(activeView === 'settings' ? 'accessibility' : 'academic');
 
-  const availableSubjects = [
-    'Data Structures & Algorithms',
-    'Database Management',
-    'Computer Networks',
-    'Linear Algebra',
-    'Biology & Genetics',
-    'Economics & Finance'
-  ];
+  const availableSubjects = ACTIVE_SUBJECTS;
 
   const formatOptions = [
     'Bilingual Explanations',
@@ -119,30 +113,30 @@ export default function ProfileSettings({
           </div>
 
           <div style={{ display: 'flex', gap: '8px' }}>
-            <button
-              className={`btn btn-sm ${activeSubTab === 'academic' ? 'btn-primary' : 'btn-outline'}`}
-              onClick={() => setActiveSubTab('academic')}
-            >
-              🎓 Academic & Subjects
-            </button>
-            <button
-              className={`btn btn-sm ${activeSubTab === 'languages' ? 'btn-primary' : 'btn-outline'}`}
-              onClick={() => setActiveSubTab('languages')}
-            >
-              🌐 Languages & Goals
-            </button>
-            <button
-              className={`btn btn-sm ${activeSubTab === 'diagnostic' ? 'btn-primary' : 'btn-outline'}`}
-              onClick={() => setActiveSubTab('diagnostic')}
-            >
-              🎯 Diagnostic Report
-            </button>
-            <button
-              className={`btn btn-sm ${activeSubTab === 'accessibility' ? 'btn-primary' : 'btn-outline'}`}
-              onClick={() => setActiveSubTab('accessibility')}
-            >
-              ♿ Accessibility & System
-            </button>
+            {activeView !== 'settings' && (
+              <button
+                className={`btn btn-sm ${activeSubTab === 'academic' ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setActiveSubTab('academic')}
+              >
+                🎓 Academic & Subjects
+              </button>
+            )}
+            {activeView !== 'settings' && (
+              <button
+                className={`btn btn-sm ${activeSubTab === 'languages' ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setActiveSubTab('languages')}
+              >
+                🌐 Languages & Goals
+              </button>
+            )}
+            {activeView === 'settings' && (
+              <button
+                className={`btn btn-sm ${activeSubTab === 'accessibility' ? 'btn-primary' : 'btn-outline'}`}
+                onClick={() => setActiveSubTab('accessibility')}
+              >
+                ♿ Accessibility & System
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -372,59 +366,6 @@ export default function ProfileSettings({
         </form>
       )}
 
-      {/* SUB-TAB 3: Diagnostic Report */}
-      {activeSubTab === 'diagnostic' && (
-        <div className="card">
-          <div className="card-header">
-            <div>
-              <h3 className="card-title">🎯 Baseline Diagnostic Report</h3>
-              <div className="card-subtitle">Topic-wise estimates used to calibrate AI recommendations</div>
-            </div>
-            <span className="badge badge-blue">Baseline Analysis</span>
-          </div>
-
-          <div style={{ padding: '12px 16px', background: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: 'var(--radius-md)', marginBottom: '20px', fontSize: '0.85rem', color: '#92400E' }}>
-            ℹ️ <strong>Pedagogical Disclaimer:</strong> Diagnostic results are tentative estimates based on a short preliminary assessment. They are designed to guide study priorities, not to act as permanent measures of your potential.
-          </div>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {Object.entries(profileForm.diagnosticResults || {}).map(([subject, res]) => {
-              if (typeof res !== 'object' || !res.score) return null;
-              return (
-                <div key={subject} style={{ padding: '16px 20px', background: '#F8FAFC', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-border)' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                    <h4 style={{ fontSize: '1rem', fontWeight: '700', color: 'var(--color-dark-blue)' }}>{subject}</h4>
-                    <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                      <span className="badge badge-green">Score: {res.score}</span>
-                      <span className="badge badge-blue">Level: {res.level}</span>
-                    </div>
-                  </div>
-
-                  <div className="grid-2" style={{ marginTop: '10px' }}>
-                    <div>
-                      <strong style={{ fontSize: '0.82rem', color: '#065F46' }}>✓ Identified Strengths:</strong>
-                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
-                        {res.strengths?.map((s, i) => (
-                          <span key={i} className="badge badge-green" style={{ fontSize: '0.74rem' }}>{s}</span>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <strong style={{ fontSize: '0.82rem', color: '#92400E' }}>⚡ High-Yield Growth Areas:</strong>
-                      <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '4px' }}>
-                        {res.growthAreas?.map((g, i) => (
-                          <span key={i} className="badge badge-amber" style={{ fontSize: '0.74rem' }}>{g}</span>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
       {/* SUB-TAB 4: Accessibility & System */}
       {activeSubTab === 'accessibility' && (
         <div className="card">
@@ -437,35 +378,6 @@ export default function ProfileSettings({
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            {/* Font Size */}
-            <div>
-              <label className="form-label" style={{ fontWeight: '700' }}>Platform Typography Size</label>
-              <p className="form-help" style={{ marginBottom: '8px' }}>Alters base root font sizes across dashboard, study notes, and workspace.</p>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '10px' }}>
-                <button
-                  type="button"
-                  className={`btn ${accessibility.textSize === 'normal' ? 'btn-primary' : 'btn-outline'}`}
-                  onClick={() => updateAccessibility({ ...accessibility, textSize: 'normal' })}
-                >
-                  Standard (15px)
-                </button>
-                <button
-                  type="button"
-                  className={`btn ${accessibility.textSize === 'medium' ? 'btn-primary' : 'btn-outline'}`}
-                  onClick={() => updateAccessibility({ ...accessibility, textSize: 'medium' })}
-                >
-                  Medium (17px)
-                </button>
-                <button
-                  type="button"
-                  className={`btn ${accessibility.textSize === 'large' ? 'btn-primary' : 'btn-outline'}`}
-                  onClick={() => updateAccessibility({ ...accessibility, textSize: 'large' })}
-                >
-                  Large (19px)
-                </button>
-              </div>
-            </div>
-
             {/* High Contrast */}
             <div style={{
               display: 'flex',
@@ -490,56 +402,6 @@ export default function ProfileSettings({
               />
             </div>
 
-            {/* Simplified Layout */}
-            <div style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              padding: '16px',
-              background: 'var(--color-surface-light)',
-              borderRadius: 'var(--radius-md)',
-              border: '1px solid var(--color-border)'
-            }}>
-              <div>
-                <strong style={{ color: 'var(--color-dark-blue)' }}>Simplified Layout Mode</strong>
-                <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginTop: '2px' }}>
-                  Reduces visual clutter and enlarges button touch targets.
-                </div>
-              </div>
-              <input
-                type="checkbox"
-                checked={accessibility.simplifiedLayout}
-                onChange={(e) => updateAccessibility({ ...accessibility, simplifiedLayout: e.target.checked })}
-                style={{ width: '22px', height: '22px', accentColor: 'var(--color-strong-blue)', cursor: 'pointer' }}
-              />
-            </div>
-
-            {/* Danger Zone: Reset Data */}
-            <div style={{
-              marginTop: '10px',
-              padding: '16px',
-              border: '1px solid var(--color-danger-bg)',
-              background: '#FFF5F5',
-              borderRadius: 'var(--radius-md)'
-            }}>
-              <strong style={{ color: 'var(--color-danger)' }}>Prototype Session Storage Management</strong>
-              <div style={{ fontSize: '0.82rem', color: 'var(--color-text-secondary)', marginTop: '4px', marginBottom: '12px' }}>
-                Reset sample documents, conversations, and preferences to original state.
-              </div>
-              <button
-                type="button"
-                className="btn btn-sm btn-outline"
-                style={{ borderColor: 'var(--color-danger)', color: 'var(--color-danger)' }}
-                onClick={() => {
-                  if (window.confirm("Reset all browser-saved preferences and documents to default sample state?")) {
-                    localStorage.clear();
-                    window.location.reload();
-                  }
-                }}
-              >
-                Clear LocalStorage & Reload
-              </button>
-            </div>
           </div>
         </div>
       )}

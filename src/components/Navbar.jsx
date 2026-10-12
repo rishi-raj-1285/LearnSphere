@@ -6,7 +6,6 @@ export default function Navbar({
   setSearchTerm,
   currentLanguage,
   onLanguageChange,
-  onOpenAccessibility,
   onOpenStudySession,
   onToggleSidebar,
   studentProfile,
@@ -70,21 +69,6 @@ export default function Navbar({
             <option value="Tamil">🇮🇳 Tamil (தமிழ்)</option>
           </select>
         </div>
-
-        {/* Accessibility Shortcut */}
-        <button
-          className="icon-btn"
-          onClick={onOpenAccessibility}
-          title="Open Accessibility Settings (Text Size, Contrast)"
-          aria-label="Accessibility Settings"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"></path>
-            <path d="M6 10h12"></path>
-            <path d="m9 14 3 6 3-6"></path>
-          </svg>
-        </button>
 
         {/* Start Study Session CTA */}
         <button

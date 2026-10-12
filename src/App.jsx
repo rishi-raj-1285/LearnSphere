@@ -17,7 +17,8 @@ import ProfileSettings from './pages/ProfileSettings';
 
 import {
   EMPTY_STUDENT_PROFILE,
-  DEMO_DOCUMENTS
+  DEMO_DOCUMENTS,
+  ACTIVE_SUBJECTS
 } from './data/initialData';
 
 import {
@@ -37,7 +38,7 @@ export default function App() {
   const [userDocuments, setUserDocuments] = useState([]);
   const [conversations, setConversations] = useState([]);
 
-  const documents = [...userDocuments, ...DEMO_DOCUMENTS];
+  const documents = [...userDocuments, ...DEMO_DOCUMENTS.filter((doc) => ACTIVE_SUBJECTS.includes(doc.subject))];
 
   const [activeTab, setActiveTab] = useState('dashboard');
   const [activeDocument, setActiveDocument] = useState(DEMO_DOCUMENTS[0]);
@@ -343,6 +344,7 @@ export default function App() {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         }}
         isOpen={isSidebarOpen}
+        onLogout={handleLogout}
         onClose={() => setIsSidebarOpen(false)}
       />
 
@@ -353,7 +355,6 @@ export default function App() {
           setSearchTerm={setSearchTerm}
           currentLanguage={currentLanguage}
           onLanguageChange={handleLanguageChange}
-          onOpenAccessibility={() => setIsAccessibilityModalOpen(true)}
           onOpenStudySession={() => setIsStudySessionModalOpen(true)}
           onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
           studentProfile={studentProfile}
@@ -426,7 +427,7 @@ export default function App() {
               conversations={conversations}
               setConversations={setConversations}
               onOpenConversationInWorkspace={handleOpenConversationInWorkspace}
-              onAddToast={addAddToast}
+              onAddToast={addToast}
             />
           )}
 
@@ -437,6 +438,7 @@ export default function App() {
               onAddToast={addToast}
               studentProfile={studentProfile}
               setStudentProfile={persistProfile}
+              onUploadDocument={handleUploadDocument}
             />
           )}
 

@@ -485,9 +485,10 @@ export default function DocumentStudy({
               onChange={(e) => setSelectedSyllabus(e.target.value)}
             >
               <option value="University CS201 - Data Structures & Algorithms">University CS201 - Data Structures & Algorithms</option>
-              <option value="High School & Pre-Med Molecular Biology Core">High School & Pre-Med Molecular Biology Core</option>
-              <option value="Introductory Macroeconomics 101">Introductory Macroeconomics 101</option>
-              <option value="Engineering Mathematics II - Linear Algebra">Engineering Mathematics II - Linear Algebra</option>
+              <option value="Operating Systems Core">Operating Systems Core</option>
+              <option value="SQL Fundamentals">SQL Fundamentals</option>
+              <option value="Computer Networks Core">Computer Networks Core</option>
+              <option value="Aptitude Practice">Aptitude Practice</option>
             </select>
           </div>
 
